@@ -7,17 +7,13 @@ class Reddit
   Future<SubReddit?> getPosts(String url)
   async {
     final response = await http.get(Uri.parse(url));
-    print("Starting");
     if(response.statusCode == 200)
     {
       final json = jsonDecode(response.body);
-
-      SubReddit subReddit = SubReddit.fromJson(json);
-      return subReddit;
+      return SubReddit.fromJson(json);
     }
     else
     {
-      print("Failed");
       return null;
     }
   }
