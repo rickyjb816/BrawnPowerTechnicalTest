@@ -2,44 +2,23 @@ import 'package:brawn_power_technical_test/Data/RedditPosts.dart';
 
 class SubRedditData
 {
-  String _after = "";
+  String after = "";
 
-  String get after => _after;
+  int dist = 0;
 
-  set after(String after) {
-    _after = after;
-  }
-  int _dist = 0;
+  String modhash = "";
 
-  int get dist => _dist;
+  List<RedditPosts?> redditPosts = new List.empty(growable: true);
 
-  set dist(int dist) {
-    _dist = dist;
-  }
-  String _modhash = "";
+  SubRedditData({required this.after,  required this.dist, required this.modhash, required this.redditPosts});
 
-  String get modhash => _modhash;
-
-  set modhash(String modhash) {
-    _modhash = modhash;
-  }
-
-  List<RedditPosts?> _redditPosts = new List.empty(growable: true);
-
-  List<RedditPosts?> get redditPosts => _redditPosts;
-
-  set redditPosts(List<RedditPosts?> redditPosts) {
-    _redditPosts = redditPosts;
-  }
-
-  SubRedditData(String after,  int dist, String modhash, List<RedditPosts?> redditPosts) {
-      this.after = after;
-      this.dist = dist;
-      this.modhash = modhash;
-      this.redditPosts = redditPosts;
-  }
-
-  factory SubRedditData.fromJson(Map<String, dynamic> data) => SubRedditData(data["after"], data["dist"], data["modhash"], mapDataToRedditPostsObject(data["children"] as List));
+  factory SubRedditData.fromJson(Map<String, dynamic> data) =>
+      SubRedditData(
+          after: data["after"],
+          dist: data["dist"],
+          modhash: data["modhash"],
+          redditPosts: mapDataToRedditPostsObject(data["children"] as List)
+      );
 
   static List<RedditPosts?> mapDataToRedditPostsObject(List<dynamic> data) => data.map((e) => RedditPosts.fromJson(e)).toList(growable: true);
 }
